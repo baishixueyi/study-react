@@ -1,4 +1,4 @@
-import ReactDom from './react-dom.js'
+import {renderComponent} from './react-dom.js'
 
 class Component{
     constructor(props){
@@ -8,17 +8,24 @@ class Component{
     setState(newState){
         Object.assign(this.states,newState)
         //重新渲染
-        ReactDom.renderComponent(this)
+        renderComponent(this)
     }
 }
-const React = {
-    createElement(tag,attrs,...children){
-        return {
-            tag,
-            attrs,
-            children
-        }
-    },
+
+function createElement(tag,attrs,...children){
+    return {
+        tag,
+        attrs,
+        children
+    }
+}
+
+export default {
+    createElement,
     Component
 }
-export default React
+
+export {
+    createElement,
+    Component
+}

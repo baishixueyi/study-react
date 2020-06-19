@@ -1,5 +1,5 @@
 
-import React from './lib/react.js'
+import React,{Component} from './lib/react.js'
 import ReactDom from './lib/react-dom.js'
 
 function Menu(props) {
@@ -12,7 +12,7 @@ function Menu(props) {
 // }
 
 //组件必须大写开头
-class App extends React.Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.states = {

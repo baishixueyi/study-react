@@ -11,7 +11,7 @@ function setAttrbute(node,attrs){
         }
     }
 }
-function render(vdom,container){
+function renderVdom(vdom,container){
     let node = createDomfromVdom(vdom)
     container.appendChild(node)
 }
@@ -31,7 +31,7 @@ function createDomfromVdom(vdom){
         }else{
             node = document.createElement(vdom.tag)
             setAttrbute(node,vdom.attrs)
-            vdom.children.forEach(childVdom=>render(childVdom,node)) 
+            vdom.children.forEach(childVdom=>renderVdom(childVdom,node)) 
         }
         
     }
@@ -56,11 +56,15 @@ function renderComponent(component){
         component.$root.parentNode.replaceChild(vnode,component.$root)
     }
 }
-const ReactDom = {
-    render(vdom,container){
-        container.innerHTML = ''
-        render(vdom,container)
-    },
-    renderComponent
+
+function render(vdom,container){
+    container.innerHTML = ''
+    renderVdom(vdom,container)
+    
 }
-export default ReactDom
+
+export {
+    render,renderComponent
+}
+
+export default {render,renderComponent}
