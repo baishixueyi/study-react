@@ -1,3 +1,4 @@
+import React from "./react.js"
 function setAttrbute(node,attrs){
     if(!attrs) return;
     for(let key in attrs){
@@ -22,7 +23,8 @@ function createDomfromVdom(vdom){
     }
     if(typeof vdom === 'object'){
         if(typeof vdom.tag==='function'){
-          let component =  new vdom.tag(vdom.attrs)
+         // let component =  new vdom.tag(vdom.attrs)
+         let component = getComponent(vdom.tag,vdom.attrs)
           let vnode = component.render()
           node = createDomfromVdom(vnode)
           component.$root = node
@@ -35,6 +37,17 @@ function createDomfromVdom(vdom){
     }
     return node
 }
+function getComponent(constructor,attrs){
+    if(constructor.prototype instanceof React.Component){
+        return new constructor(attrs)
+    }else{
+        let App = class extends React.Component{}
+        App.prototype.render = function(){
+            return constructor(attrs)
+        }
+        return new App(attrs)
+    }
+}
 //组件渲染
 function renderComponent(component){
     let vdom = component.render()
@@ -42,7 +55,6 @@ function renderComponent(component){
     if(component.$root){
         component.$root.parentNode.replaceChild(vnode,component.$root)
     }
-    console.log(4444)
 }
 const ReactDom = {
     render(vdom,container){

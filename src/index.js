@@ -2,11 +2,15 @@
 import React from './lib/react.js'
 import ReactDom from './lib/react-dom.js'
 
-class Menu extends React.Component {
-    render(){
-        return <h1>memu {this.props.title}</h1>
-    }
+function Menu(props) {
+    return <h1>memu {props.title}</h1>
 }
+// class Menu extends React.Component {
+//     render(){
+//         return <h1>memu {this.props.title}</h1>
+//     }
+// }
+
 //组件必须大写开头
 class App extends React.Component {
     constructor(props) {
