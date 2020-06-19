@@ -1,3 +1,5 @@
+import ReactDom from './react-dom.js'
+
 class Component{
     constructor(props){
         this.props = props;
@@ -5,6 +7,8 @@ class Component{
     }
     setState(newState){
         Object.assign(this.states,newState)
+        //重新渲染
+        ReactDom.renderComponent(this)
     }
 }
 const React = {

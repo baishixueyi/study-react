@@ -25,6 +25,7 @@ function createDomfromVdom(vdom){
           let component =  new vdom.tag(vdom.attrs)
           let vnode = component.render()
           node = createDomfromVdom(vnode)
+          component.$root = node
         }else{
             node = document.createElement(vdom.tag)
             setAttrbute(node,vdom.attrs)
@@ -34,10 +35,20 @@ function createDomfromVdom(vdom){
     }
     return node
 }
+//组件渲染
+function renderComponent(component){
+    let vdom = component.render()
+    let vnode = createDomfromVdom(vdom)
+    if(component.$root){
+        component.$root.parentNode.replaceChild(vnode,component.$root)
+    }
+    console.log(4444)
+}
 const ReactDom = {
     render(vdom,container){
         container.innerHTML = ''
         render(vdom,container)
-    }
+    },
+    renderComponent
 }
 export default ReactDom
