@@ -1,15 +1,15 @@
-# 如何设置React环境，Webpack和Babel
+# React简易版
 
 ## 设置项目
 首先，为项目创建目录：
 
-`mkdir webpack-react-tutorial && cd webpack-react-tutorial`
+`mkdir webpack-react-tutorial && cd webpack-react-tutorial` 
 创建用于保存代码的最小目录结构：
 
-`mkdir -p src`
+`mkdir -p src` 
 通过运行以下内容来初始化项目：
 
-`npm init -y`
+`npm init -y` 
 ## 设置Webpack
 让我们通过运行以下命令安装webpack和webpack-cli：
 
