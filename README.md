@@ -3,22 +3,22 @@
 ## 设置项目
 首先，为项目创建目录：
 
-mkdir webpack-react-tutorial && cd webpack-react-tutorial
+`mkdir webpack-react-tutorial && cd webpack-react-tutorial`
 创建用于保存代码的最小目录结构：
 
-mkdir -p src
+`mkdir -p src`
 通过运行以下内容来初始化项目：
 
-npm init -y
+`npm init -y`
 ## 设置Webpack
 让我们通过运行以下命令安装webpack和webpack-cli：
 
-npm i webpack webpack-cli --save-dev
+`npm i webpack webpack-cli --save-dev`
 现在在里面添加webpack命令package.json：
 
-"scripts": {
-  "build": "webpack --mode production"
-}
+    "scripts": {
+    "build": "webpack --mode production"
+    }
 此时，无需为webpack定义配置文件。较旧的webpack版本会自动查找配置文件。从版本4开始，情况不再如此。
 
 ## 设置 Babel 解释 JSX
@@ -37,81 +37,81 @@ npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
 
 在项目根目录创建 .babelrc 文件，该文件的作用是 告诉 babel-core 在执行转换的时候使用如下插件：
 
-{
-  "presets": ["@babel/preset-env", "@babel/preset-react"]
-}
+    {
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
+    }
 或者
 
-{
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    ["transform-react-jsx", {
-        "pragma": "React.createElement"
-    }]
-  ]
-}
+    {
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        ["transform-react-jsx", {
+            "pragma": "React.createElement"
+        }]
+    ]
+    }
 创建一个名为的文件webpack.config.js，内容如下：
 
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+    const path = require('path');
+    const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-  entry: {
-    index: './src/index.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
+    module.exports = {
+    entry: {
+        index: './src/index.js'
+    },
+    module: {
+        rules: [
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: {
+            loader: 'babel-loader'
+            }
         }
-      }
-    ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin()
-  ],
-  output: {
-    filename: '[name].[hash:5].bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
-  }
-}
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin()
+    ],
+    output: {
+        filename: '[name].[hash:5].bundle.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
+    }
+    }
 
 该配置非常少。对于每个带有js或jsx扩展名的文件，Webpack都会通过babel-loader处理代码。 以上配置不只能用于本章练习JSX，也适合正式的React开发环境。
 
 为了使环境能正常启动，需要安装 html-webpack-plugin 和 wepack-dev-server
 
-npm i --save-dev html-webpack-plugin webpack-dev-server
+`npm i --save-dev html-webpack-plugin webpack-dev-server`
 修改 package.json
 
-{
-  ...
-  "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack"
-  },
-  ...
-}
+    {
+    ...
+    "scripts": {
+        "start": "webpack-dev-server",
+        "build": "webpack"
+    },
+    ...
+    }
 ## 测试JSX
 创建 src/index.js 文件
 
-const React = {
-  createElement(...args) {
-    console.log(args)
-  }
-};
+    const React = {
+    createElement(...args) {
+        console.log(args)
+    }
+    };
 
-let div = <div>hello </div>;
-console.log(div);
+    let div = <div>hello </div>;
+    console.log(div);
 
 执行，启动测试
 
-npm run start 
+`npm run start `
